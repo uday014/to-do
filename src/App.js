@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+
+document.body.style.backgroundImage =
+  "url('https://th.bing.com/th/id/OIP.5oXuv0uB6YaN4YcgoEI-RAHaEo?w=253&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7')";
 
 function App() {
+  const [input, setInput] = useState("");
+  const [value, newValue] = useState([]);
+
+  function handle(event) {
+    const newinput = event.target.value;
+    setInput(newinput);
+  }
+  function addValue() {
+    newValue((prevItem) => {
+      return [...prevItem, input];
+    });
+    setInput("");
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="Heading">
+        <h1>To-do-list</h1>
+      </div>
+      <div className="form">
+        <input onChange={handle} type="text" value={input} />
+        <button onClick={addValue}>
+          <span>Add</span>
+        </button>
+      </div>
+      <div>
+        <ul>
+          {value.map((todoItem) => {
+            return <li>{todoItem}</li>;
+          })}
+        </ul>
+      </div>
     </div>
   );
 }
